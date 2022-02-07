@@ -9,13 +9,13 @@ using Xunit.Sdk;
 namespace UnitTest
 {
     [TestClass]
-    public class Test
+    public class TransactionTest
     {
         [TestMethod]
-        public void TestLecturaXML() 
+        public void TestReadXML() 
         {
-            List<ModelTransaction> a = Helpers.GetTransactionsXML();
-            Assert.AreNotEqual(a.Count, 0);
+            List<ModelTransaction> transactions = Helpers.GetTransactionsXML();
+            Assert.AreNotEqual(transactions.Count, 0);
         }
 
         [TestMethod]

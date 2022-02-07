@@ -7,7 +7,7 @@ namespace WebApplication2.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<ModelTransaction> Transacciones { get; set; } = null;
+        public DbSet<ModelTransaction> Transactions { get; set; } = null;
         public DbSet<ModelCurrency> Currencies { get; set; } = null;
 
     }

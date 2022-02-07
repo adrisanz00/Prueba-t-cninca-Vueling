@@ -3,12 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web.Models;
 using WebApplication2.Data;
-using System.Xml;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Web.Models;
-using WebApplication2.Data;
-using System.Globalization;
 using WebApplication2.ErrorHandling;
 using WebApplication2.Utils;
 

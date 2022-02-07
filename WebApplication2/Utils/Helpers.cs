@@ -77,9 +77,9 @@ namespace WebApplication2.Utils
             List<ModelTransaction> transactions = GetTransactionsXML();
             if (transactions.Count > 0)
             {
-                foreach (var item in _context.Transacciones)
+                foreach (var item in _context.Transactions)
                 {
-                    _context.Transacciones.Remove(item);
+                    _context.Transactions.Remove(item);
                 }
 
                 _context.SaveChanges();
@@ -87,7 +87,7 @@ namespace WebApplication2.Utils
                 foreach (var transaction in transactions)
                 {
 
-                    _context.Transacciones.Add(transaction);
+                    _context.Transactions.Add(transaction);
                 }
                 _context.SaveChanges();
             }

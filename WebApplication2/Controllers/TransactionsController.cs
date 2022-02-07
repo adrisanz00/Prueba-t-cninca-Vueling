@@ -1,11 +1,9 @@
 ﻿#nullable disable
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Web.Models;
 using WebApplication2.Data;
-using System.Xml;
-using System.Globalization;
-using Newtonsoft.Json;
 using WebApplication2.ErrorHandling;
 using WebApplication2.Utils;
 
@@ -26,15 +24,15 @@ namespace WebApplication2.Controllers
         public async Task<ActionResult<IEnumerable<ModelTransaction>>> GetTransacciones()
         {
             Helpers.InsertDbTransactions(_context);
-            return await _context.Transacciones.ToListAsync();
+            return await _context.Transactions.ToListAsync();
         }
 
         [HttpGet("getBySKU/{SKU}")]
-        public async  Task<string> GetTransaccionesBySKU(string SKU)
+        public async  Task<string> GetTransactionsBySKU(string SKU)
         {
 
              List<ModelTransaction> skuTransactions= _context
-                .Transacciones
+                .Transactions
                 .Where(transaction => transaction.SKU == SKU)
                 .ToList();
             
@@ -51,12 +49,6 @@ namespace WebApplication2.Controllers
 
         private List<ModelTransaction> GetTransactionList(List<ModelTransaction> skuTransactions) 
         {
-            List<ModelTransaction> list = new List<ModelTransaction>();
-            list.Add(new ModelTransaction { SKU = "E234", Currency = "EUR", Amount = 242 });
-            list.Add(new ModelTransaction { SKU = "E634", Currency = "EUR", Amount = 23 });
-            list.Add(new ModelTransaction { SKU = "E734", Currency = "EUR", Amount = 1.34 });
-            list.Add(new ModelTransaction { SKU = "E134", Currency = "EUR", Amount = 1.03 });
-            var a = Helpers.CalculateTotalAmount(list);
             double result = 0;
             string actualCurrency;
             ModelCurrency currency = new ModelCurrency();
@@ -113,7 +105,7 @@ namespace WebApplication2.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ModelTransaction>> GetModelTransaction(int id)
         {
-            var modelTransaction = await _context.Transacciones.FindAsync(id);
+            var modelTransaction = await _context.Transactions.FindAsync(id);
 
             if (modelTransaction == null)
             {
@@ -152,7 +144,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public async Task<ActionResult<ModelTransaction>> PostModelTransaction(ModelTransaction modelTransaction)
         {
-            _context.Transacciones.Add(modelTransaction);
+            _context.Transactions.Add(modelTransaction);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetModelTransaction", new { id = modelTransaction.Id }, modelTransaction);
@@ -162,13 +154,13 @@ namespace WebApplication2.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteModelTransaction(int id)
         {
-            var modelTransaction = await _context.Transacciones.FindAsync(id);
+            var modelTransaction = await _context.Transactions.FindAsync(id);
             if (modelTransaction == null)
             {
                 return NotFound();
             }
 
-            _context.Transacciones.Remove(modelTransaction);
+            _context.Transactions.Remove(modelTransaction);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -176,7 +168,7 @@ namespace WebApplication2.Controllers
 
         private bool ModelTransactionExists(int id)
         {
-            return _context.Transacciones.Any(e => e.Id == id);
+            return _context.Transactions.Any(e => e.Id == id);
         }
 
     }
